@@ -1,0 +1,10 @@
+{
+    "name": "Bose.Wearable.Connection.Editor",
+    "references": [
+        "Bose.Wearable"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

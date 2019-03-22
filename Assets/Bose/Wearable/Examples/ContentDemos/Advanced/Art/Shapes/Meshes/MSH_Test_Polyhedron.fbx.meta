@@ -1,0 +1,125 @@
+fileFormatVersion: 2
+guid: 1f9bb743f3aa2504b966a47b4bdf53db
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Interior
+    100002: //RootNode
+    100004: Polyhedron
+    100006: Polyhedron.001
+    100008: Verts
+    100010: Icosphere
+    400000: Interior
+    400002: //RootNode
+    400004: Polyhedron
+    400006: Polyhedron.001
+    400008: Verts
+    400010: Icosphere
+    2100000: MTL_Polyhedron
+    2100002: MTL_Polyhedron_Interior
+    2100004: MTL_Verts
+    2300000: Interior
+    2300002: Polyhedron
+    2300004: Polyhedron.001
+    2300006: Verts
+    2300008: Icosphere
+    3300000: Interior
+    3300002: Polyhedron
+    3300004: Polyhedron.001
+    3300006: Verts
+    3300008: Icosphere
+    4300000: Polyhedron
+    4300002: Interior
+    4300004: Verts
+    4300006: Polyhedron.001
+    4300008: Icosphere
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MTL_Polyhedron
+    second: {fileID: 2100000, guid: 6c56c19ae5e700f4da10c771d1cfcd6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MTL_Polyhedron_Interior
+    second: {fileID: 2100000, guid: 30f728098d45b134fb16cbdca0f79b40, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,11 @@
+framework module BoseWearable {
+  umbrella header "BoseWearable-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module BoseWearable.Swift {
+    header "BoseWearable-Swift.h"
+    requires objc
+}

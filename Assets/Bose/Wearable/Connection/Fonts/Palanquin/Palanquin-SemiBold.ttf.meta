@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: d2fdef0faeacc4d25b4ad8daaf9ee630
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Palanquin
+  fontNames:
+  - Palanquin
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 96d65810ae0e84968a823314043f6be8, type: 3}
+  - {fileID: 12800000, guid: 30943f69a0aed4b43a5a4481b7572055, type: 3}
+  - {fileID: 12800000, guid: 22e6e38f1316b46bda707f63afe81c57, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

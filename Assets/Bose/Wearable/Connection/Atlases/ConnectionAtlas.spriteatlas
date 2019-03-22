@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ConnectionAtlas
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 1
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: d9f1325dbdddb448f81a60d3f0bb8ad3, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: ca23c79dbd8ec42fb98cc414eb988fa8, type: 3}
+  - {fileID: 21300000, guid: 9dec3a8183f274315a58970652e3384b, type: 3}
+  - {fileID: 21300000, guid: 440187ed83e524d13bd279b3c76f4195, type: 3}
+  - {fileID: 21300000, guid: f46bca0fad4be403bab1ac304d8c6fb9, type: 3}
+  - {fileID: 21300000, guid: c1a21a2428d7d43b4b7202021b764951, type: 3}
+  - {fileID: 21300000, guid: c70eb13c1caca4dd99e1195c9fbeb970, type: 3}
+  - {fileID: 21300000, guid: 3f90f200f1cec448480d2e0b371e772d, type: 3}
+  - {fileID: 21300000, guid: 5f2f70f2ba0fa4402b9ba4d2d64f782d, type: 3}
+  - {fileID: 21300000, guid: 7503f4039cee846f8894e806dcbfbf91, type: 3}
+  - {fileID: 21300000, guid: 41366f34c66b643c3b0d8b0cedcbf90c, type: 3}
+  - {fileID: 21300000, guid: ed338de7786b04373ab041c89a2e2587, type: 3}
+  - {fileID: 21300000, guid: 28540530e07144f588d90723fb07493e, type: 3}
+  - {fileID: 21300000, guid: f7282bb4a8fa2449f8221389ae22c6f5, type: 3}
+  - {fileID: 21300000, guid: a6b06cd98a09945399a66e6870c3c5e4, type: 3}
+  - {fileID: 21300000, guid: 1a270743d1ea549c28d858af04a4db53, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - bose_logo_transparent
+  - loading_full_circle_filled
+  - loading_fade_white
+  - icon_background
+  - icon_success
+  - icon_failure
+  - background_red
+  - background_blue
+  - button
+  - background_yellow
+  - background_green
+  - game_select_mask
+  - icon_exclamation
+  - background_bar
+  - list_line
+  m_Tag: ConnectionAtlas
+  m_IsVariant: 0
