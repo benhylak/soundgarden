@@ -5,11 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bose.Wearable;
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+//    [CustomEditor(typeof(GameManager))]
+//    public class ObjectBuilderEditor : Editor
+//    {
+//        public override void OnInspectorGUI()
+//        {
+//            DrawDefaultInspector();
+//        
+//            GameManager myScript = (GameManager)target;
+//            if(GUILayout.Button("Calibrate"))
+//            {
+//                myScript.CalibrateRotation();
+//            }
+//        }
+//    }
+    
     public GameObject calibrationButton;
     public GameObject head;
 
@@ -147,7 +163,7 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if (Input.touches.Length > 0)
+        if (Input.touches.Length > 0 )
         {
             var ray  = Camera.main.ScreenPointToRay(Input.touches[0].position);
             RaycastHit hit;
@@ -165,8 +181,8 @@ public class GameManager : Singleton<GameManager>
 
     public void CalibrateRotation()
     {
-        head.GetComponent<RotationMatcher>().SetRelativeReference();
-        calibrationButton.GetComponentInChildren<RotationMatcher>().SetRelativeReference();
+        head.GetComponent<ARRotationMatcher>().SetRelativeReference();
+        calibrationButton.GetComponentInChildren<ARRotationMatcher>().SetRelativeReference();
     }
 
     public void OnHeadphonesTapped()

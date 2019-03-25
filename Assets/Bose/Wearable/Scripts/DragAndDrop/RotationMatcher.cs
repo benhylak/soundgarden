@@ -32,7 +32,7 @@ namespace Bose.Wearable
 		public RotationReference ReferenceMode
 		{
 			get { return _mode; }
-			private set { _mode = value; }
+			protected set { _mode = value; }
 		}
 
 		/// <summary>
@@ -55,11 +55,11 @@ namespace Bose.Wearable
 			}
 		}
 
-		private WearableControl _wearableControl;
-		private RotationReference _mode;
-		private Quaternion _inverseReference;
-
-		private void Awake()
+		protected WearableControl _wearableControl;
+		protected RotationReference _mode;
+		protected Quaternion _inverseReference;
+		
+		protected virtual void Awake()
 		{
 			// Begin in absolute mode and cache the wearable controller.
 			_wearableControl = WearableControl.Instance;
@@ -76,7 +76,7 @@ namespace Bose.Wearable
 			requirement.SetSensorUpdateInterval(SensorUpdateInterval.EightyMs);
 		}
 
-		private void Update()
+		protected virtual void Update()
 		{
 			if (_wearableControl.ConnectedDevice == null)
 			{
@@ -86,7 +86,7 @@ namespace Bose.Wearable
 			// Get a frame of sensor data. Since no integration is being performed, we can safely ignore all
 			// intermediate frames and just grab the most recent.
 			SensorFrame frame = _wearableControl.LastSensorFrame;
-
+			
 			if (_mode == RotationReference.Absolute)
 			{
 				// In absolute mode, match the rotation exactly.
@@ -98,12 +98,13 @@ namespace Bose.Wearable
 				transform.rotation = _inverseReference * frame.rotation;
 			}
 		}
+			
 
 		/// <summary>
 		/// Set rotation to always use the rotation from the latest <see cref="SensorFrame"/> when matching the
 		/// rotation.
 		/// </summary>
-		public void SetAbsoluteReference()
+		public virtual void SetAbsoluteReference()
 		{
 			ReferenceMode = RotationReference.Absolute;
 		}
@@ -111,7 +112,7 @@ namespace Bose.Wearable
 		/// <summary>
 		/// Set the reference to the device's current orientation.
 		/// </summary>
-		public void SetRelativeReference()
+		public virtual void SetRelativeReference()
 		{
 			ReferenceMode = RotationReference.Relative;
 
@@ -125,7 +126,7 @@ namespace Bose.Wearable
 		/// Set the <see cref="Quaternion"/> <paramref name="rotation"/> as a reference when matching the rotation.
 		/// </summary>
 		/// <param name="rotation"></param>
-		public void SetRelativeReference(Quaternion rotation)
+		public virtual void SetRelativeReference(Quaternion rotation)
 		{
 			ReferenceMode = RotationReference.Relative;
 			_inverseReference = Quaternion.Inverse(rotation);
