@@ -7,6 +7,7 @@ using Bose.Wearable;
 using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Accessibility;
 using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
@@ -37,6 +38,8 @@ public class GameManager : Singleton<GameManager>
     public Image recordButton;
 
     public GameObject recordingPrefab;
+
+    public GameObject soundSourcesRoot;
     
     private AudioSource _audioSource;
     
@@ -52,6 +55,7 @@ public class GameManager : Singleton<GameManager>
     private float _recordStartTime;
 
     public GameObject radioPrefab;
+    public GameObject cashRegisterPrefab;
     
     // Start is called before the first frame update
     void Start()
@@ -64,8 +68,29 @@ public class GameManager : Singleton<GameManager>
     public void AddRadio()
     {     
         var radio = Instantiate(radioPrefab);
-        radio.transform.position = Camera.main.transform.position + Camera.main.transform.forward*0.6f;
-        radio.transform.forward = -Camera.main.transform.forward;
+        PositionSoundObject(radio);
+    }
+    
+    public void AddCashRegister()
+    {     
+        var cashRegister = Instantiate(cashRegisterPrefab);
+        PositionSoundObject(cashRegister);
+    }
+
+    private void PositionSoundObject(GameObject soundObj)
+    {
+        soundObj.transform.position = Camera.main.transform.position + Camera.main.transform.forward*0.6f;
+        soundObj.transform.forward = -Camera.main.transform.forward;
+        soundObj.transform.parent = soundSourcesRoot.transform;
+    }
+
+    public void ReCenter()
+    {
+        var newPos = soundSourcesRoot.transform.position;
+        newPos.x = Camera.main.transform.position.x;
+        newPos.z = Camera.main.transform.position.z;
+
+        soundSourcesRoot.transform.position = newPos;
     }
     
     public void OnNewSound()

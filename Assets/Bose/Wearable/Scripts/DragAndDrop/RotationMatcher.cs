@@ -58,7 +58,7 @@ namespace Bose.Wearable
 		protected WearableControl _wearableControl;
 		protected RotationReference _mode;
 		protected Quaternion _inverseReference;
-		
+
 		protected virtual void Awake()
 		{
 			// Begin in absolute mode and cache the wearable controller.
@@ -86,7 +86,7 @@ namespace Bose.Wearable
 			// Get a frame of sensor data. Since no integration is being performed, we can safely ignore all
 			// intermediate frames and just grab the most recent.
 			SensorFrame frame = _wearableControl.LastSensorFrame;
-			
+
 			if (_mode == RotationReference.Absolute)
 			{
 				// In absolute mode, match the rotation exactly.
@@ -98,7 +98,6 @@ namespace Bose.Wearable
 				transform.rotation = _inverseReference * frame.rotation;
 			}
 		}
-			
 
 		/// <summary>
 		/// Set rotation to always use the rotation from the latest <see cref="SensorFrame"/> when matching the
@@ -126,7 +125,7 @@ namespace Bose.Wearable
 		/// Set the <see cref="Quaternion"/> <paramref name="rotation"/> as a reference when matching the rotation.
 		/// </summary>
 		/// <param name="rotation"></param>
-		public virtual void SetRelativeReference(Quaternion rotation)
+		public void SetRelativeReference(Quaternion rotation)
 		{
 			ReferenceMode = RotationReference.Relative;
 			_inverseReference = Quaternion.Inverse(rotation);

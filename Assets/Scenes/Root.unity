@@ -174,7 +174,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &259612707
 MonoBehaviour:
@@ -227,7 +227,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &574071910
 GameObject:
@@ -269,13 +269,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &769620803
+--- !u!1001 &658884289
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 224456739402224702, guid: 1aedbeff8cd81364cb247cde7afdcdcd,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 224456739402224702, guid: 1aedbeff8cd81364cb247cde7afdcdcd,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -314,7 +319,7 @@ Prefab:
     - target: {fileID: 224456739402224702, guid: 1aedbeff8cd81364cb247cde7afdcdcd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224456739402224702, guid: 1aedbeff8cd81364cb247cde7afdcdcd,
         type: 2}
@@ -369,7 +374,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1aedbeff8cd81364cb247cde7afdcdcd, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &976872462
+--- !u!1001 &1470258113
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -414,7 +419,7 @@ Prefab:
     - target: {fileID: 224735255644499794, guid: 0499f078647c040d7a21b94ff1177202,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224735255644499794, guid: 0499f078647c040d7a21b94ff1177202,
         type: 2}
@@ -568,6 +573,36 @@ MonoBehaviour:
     _hostname: 
   _editorDefaultProvider: 2
   _runtimeDefaultProvider: 1
+  _finalWearableDeviceConfig:
+    accelerometer:
+      isEnabled: 0
+    gyroscope:
+      isEnabled: 0
+    rotation:
+      isEnabled: 0
+    doubleTap:
+      isEnabled: 0
+    headNod:
+      isEnabled: 0
+    headShake:
+      isEnabled: 0
+    updateInterval: 2
+    rotationSource: 0
+  _overrideDeviceConfig:
+    accelerometer:
+      isEnabled: 0
+    gyroscope:
+      isEnabled: 0
+    rotation:
+      isEnabled: 0
+    doubleTap:
+      isEnabled: 0
+    headNod:
+      isEnabled: 0
+    headShake:
+      isEnabled: 0
+    updateInterval: 2
+    rotationSource: 0
 --- !u!4 &1522472338
 Transform:
   m_ObjectHideFlags: 0
@@ -579,5 +614,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

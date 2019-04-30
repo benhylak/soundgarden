@@ -18,7 +18,7 @@ namespace Bose.Wearable
 		{
 			DisconnectFromDevice();
 		}
-		
+
 		/// <summary>
 		/// Simulate a triggered gesture. If multiple gestures are triggered, they will be queued across sensor frames.
 		/// </summary>
@@ -225,7 +225,7 @@ namespace Bose.Wearable
 			{
 				return;
 			}
-			
+
 			// Clear the current frames; _lastSensorFrame will retain its previous value.
 			if (_currentSensorFrames.Count > 0)
 			{
@@ -245,7 +245,7 @@ namespace Bose.Wearable
 
 
 				bool anySensorsEnabled = false;
-				
+
 				// Update all active sensors
 				if (_sensorStatus[SensorId.Accelerometer])
 				{
@@ -264,7 +264,7 @@ namespace Bose.Wearable
 					UpdateRotationSensorData();
 					anySensorsEnabled = true;
 				}
-				
+
 				// Emit a gesture if needed
 				bool gestureEmitted = UpdateGestureData();
 
@@ -273,7 +273,7 @@ namespace Bose.Wearable
 					// Update the timestamp and delta-time and emit
 					_lastSensorFrame.deltaTime = deltaTime;
 					_lastSensorFrame.timestamp = _nextSensorUpdateTime;
-					
+
 					_currentSensorFrames.Add(_lastSensorFrame);
 					OnSensorsOrGestureUpdated(_lastSensorFrame);
 				}
@@ -304,6 +304,7 @@ namespace Bose.Wearable
 			{
 				isConnected = false,
 				name = WearableConstants.MobileProviderDeviceName,
+				firmwareVersion = WearableConstants.DefaultFirmwareVersion,
 				productId = WearableConstants.MobileProviderProductId,
 				variantId = WearableConstants.MobileProviderVariantId,
 				rssi = 0,
@@ -388,7 +389,7 @@ namespace Bose.Wearable
 					return true;
 				}
 			}
-			
+
 			_lastSensorFrame.gestureId = GestureId.None;
 			return false;
 		}

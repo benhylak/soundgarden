@@ -1899,6 +1899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 223237269086590074}
   _canvasGroup: {fileID: 225417378811032514}
+  _messageText: {fileID: 114313137916713400}
   _showOnStart: 1
 --- !u!114 &114808812022215442
 MonoBehaviour:

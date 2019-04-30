@@ -6,7 +6,7 @@ namespace Bose.Wearable
 	/// <summary>
 	/// Shown when a device connection attempt has failed
 	/// </summary>
-	public class FailedWearableConnectDisplay : WearableConnectDisplayBase
+	public sealed class FailedWearableConnectDisplay : WearableConnectDisplayBase
 	{
 		[SerializeField]
 		private Button _searchButton;
@@ -24,34 +24,43 @@ namespace Bose.Wearable
 
 		private void OnEnable()
 		{
-			_panel.DeviceConnectFailure += OnDeviceConnectionFailure;
+			_panel.DeviceSearchFailure += OnDeviceSearchFailure;
+			_panel.DeviceConnectFailure += OnDeviceConnectFailure;
 
 			_searchButton.onClick.AddListener(OnSearchButtonClicked);
 		}
 
 		private void OnDisable()
 		{
-			_panel.DeviceConnectFailure += OnDeviceConnectionFailure;
+			_panel.DeviceSearchFailure -= OnDeviceSearchFailure;
+			_panel.DeviceConnectFailure -= OnDeviceConnectFailure;
 
 			_searchButton.onClick.RemoveAllListeners();
 		}
 
-		private void OnDeviceConnectionFailure()
+		private void OnDeviceSearchFailure()
 		{
+			_messageText.text = WearableConstants.DeviceConnectSearchFailureMessage;
+
+			Show();
+		}
+
+		private void OnDeviceConnectFailure()
+		{
+			_messageText.text = WearableConstants.DeviceConnectFailureMessage;
+
 			Show();
 		}
 
 		private void OnSearchButtonClicked()
 		{
-			_panel.StartSearch();
+			_panel.CheckForPermissionsAndTrySearch();
 
 			Hide();
 		}
 
 		protected override void Show()
 		{
-			_messageText.text = WearableConstants.DeviceConnectFailureMessage;
-
 			PlayFailureSting();
 
 			base.Show();

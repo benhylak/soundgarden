@@ -10,14 +10,7 @@ namespace Bose.Wearable.Examples
 	{
 		private void Start()
 		{
-		}
-
-		private void Update()
-		{
-			if (WearableControl.Instance.ConnectedDevice.HasValue && SceneManager.GetActiveScene().name != "desales")
-			{			
-				SceneManager.LoadScene("desales");
-			}
+			SceneManager.LoadScene("desales");
 		}
 	}
 }

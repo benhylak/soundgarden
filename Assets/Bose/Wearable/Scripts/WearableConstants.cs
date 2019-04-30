@@ -12,6 +12,8 @@ namespace Bose.Wearable
 
 		public const string EmptyUID = "00000000-0000-0000-0000-000000000000";
 
+		public const string DefaultFirmwareVersion = "0.0.0";
+
 		public const SensorUpdateInterval DefaultUpdateInterval = SensorUpdateInterval.EightyMs;
 
 		public const RotationSensorSource DefaultRotationSource = RotationSensorSource.SixDof;
@@ -48,6 +50,9 @@ namespace Bose.Wearable
 
 		// Console Warnings
 		public const string UnsupportedPlatformError = "[Bose Wearable] The active provider does not support this platform.";
+		public const string DeviceConnectionPermissionError =
+			"[Bose Wearable] User has denied the \"Coarse Location\" permission required to search for devices " +
+			"over Bluetooth. No devices will be discovered.";
 		public const string DeviceConnectionFailed = "[Bose Wearable] The connection to the device has failed. " +
 		                                             "Ending attempt to connect to device.";
 		public const string DeviceConnectionFailedWithMessage = "[Bose Wearable] The connection to the device has failed with " +
@@ -56,12 +61,6 @@ namespace Bose.Wearable
 		public const string DeviceConnectionMonitorWarning = "[Bose Wearable] The connection to the device has ended.";
 		public const string DeviceConnectionMonitorWarningWithMessage = "[Bose Wearable] The connection to the device has ended " +
 		                                                                "with message '{0}'.";
-
-		public const string ArchitectureAlterationWarningWithMessage = "[Bose Wearable] iOS Architecture forced to 'ARM64'. " +
-																	"Was set to '{0}'.";
-		public const string iOSVersionAlterationWarningWithMessage = "[Bose Wearable] iOS Minimum Version forced to '{0}'. Was set to '{1}'.";
-
-		public const string iOSBluetoothAlterationWarning = "[Bose Wearable] Background Mode forced to allow connections to BLE devices.";
 
 		public const string StartSensorWithoutDeviceWarning = "[Bose Wearable] A device must be connected before starting a sensor. " +
 		                                                      "The sensor will not be started when device connects.";
@@ -151,7 +150,7 @@ namespace Bose.Wearable
 		public const string ProxyProviderBufferFullWarning = "[Bose Wearable] Proxy provider receive buffer is full, " +
 															"and no packets can be consumed. Ensure the buffer is large " +
 															"enough to consume the largest supported packet size.";
-		public const string ProxyProviderConnectionFailedWarning = "[Bose Wearable] Proxy provider failed to connect to" +
+		public const string ProxyProviderConnectionFailedWarning = "[Bose Wearable] Proxy provider failed to connect to " +
 																"server at {0}:{1}.";
 		public const string ProxyProviderNotConnectedWarning = "[Bose Wearable] Proxy provider must be connected before " +
 															"sending commands or requesting data.";
@@ -169,10 +168,13 @@ namespace Bose.Wearable
 		public const string DeviceConnectSuccessMessage = "Device connected successfully!";
 		public const string DeviceConnectFailureMessage = "Device failed to connect!";
 		public const string DeviceConnectionSearchMessage = "Searching for devices...";
+		public const string DeviceConnectSearchFailureMessage =
+			"Searching for devices failed. Location permissions are required.";
 		public const string DeviceConnectionUnderwayMessage = "Device connecting...";
 		public const string DeviceDisconnectionMessage = "Device disconnected, please reconnect";
 		public const string WaitForCalibrationMessage = "Please look forward and remain still...";
 
+		#region Platform Constants: iOS
 		// Post Build Processor
 		public const int XcodePreBuildProcessorOrder = 0;
 		public const int XcodePostBuildProcessorOrder = 0;
@@ -193,6 +195,13 @@ namespace Bose.Wearable
 
 		#endif
 
+		// Messages
+		public const string ArchitectureAlterationWarningWithMessage = "[Bose Wearable] iOS Architecture forced to 'ARM64'. " +
+		                                                               "Was set to '{0}'.";
+		public const string iOSVersionAlterationWarningWithMessage = "[Bose Wearable] iOS Minimum Version forced to '{0}'. Was set to '{1}'.";
+
+		public const string iOSBluetoothAlterationWarning = "[Bose Wearable] Background Mode forced to allow connections to BLE devices.";
+
 		// Info.plist properties
 		public const string XcodeInfoPlistRelativePath = "./Info.plist";
 		public const string XcodeInfoPlistBluetoothKey = "NSBluetoothPeripheralUsageDescription";
@@ -208,7 +217,7 @@ namespace Bose.Wearable
 		public const string XcodeBuildPropertySearchPathsValue = "@executable_path/Frameworks";
 		public const string XcodeBuildPropertyEmbedSwiftKey = "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES";
 		public const string XcodeBuildPropertySwiftVersionKey = "SWIFT_VERSION";
-		public const string XcodeBuildPropertySwiftVersionValue = "3.0";
+		public const string XcodeBuildPropertySwiftVersionValue = "5.0";
 		public const string XcodeBuildPropertySwiftOptimizationKey = "SWIFT_OPTIMIZATION_LEVEL";
 		public const string XcodeBuildPropertySwiftOptimizationValue = "-Onone";
 
@@ -222,6 +231,23 @@ namespace Bose.Wearable
 		/// This corresponds to the location of the native plugins in the Unity project.
 		/// </summary>
 		public const string NativeArtifactsPath = "Plugins/iOS/BoseWearable/";
+
+		#endregion
+
+		#region Platform Constants: Android
+
+
+		// Build Order
+		public const int AndroidPreBuildProcessorOrder = 0;
+
+		// Messages
+		public const string AndroidVersionAlterationWarningWithMessage = "[Bose Wearable] Android Minimum SDK Version forced to '{0}'. Was set to '{1}'.";
+
+		// Supported Android SDK Versions
+		public const int MinimumSupportedAndroidVersion = 21;
+
+		#endregion
+
 
 		// Scenes
 		public const string MainMenuScene = "MainMenu";

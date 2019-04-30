@@ -10,7 +10,7 @@ namespace Bose.Wearable
 	public struct Device : IEquatable<Device>
 	{
 		/// <summary>
-		/// The Unique Identifier for this device. On Android this will be the device's address, since 
+		/// The Unique Identifier for this device. On Android this will be the device's address, since
 		/// we cannot get the uuid of the device in some circumstances.
 		/// </summary>
 		public string uid;
@@ -19,6 +19,11 @@ namespace Bose.Wearable
 		/// The name of this device.
 		/// </summary>
 		public string name;
+
+		/// <summary>
+		/// The firmware version of the device.
+		/// </summary>
+		public string firmwareVersion;
 
 		/// <summary>
 		/// The connection state of this device.
@@ -59,6 +64,8 @@ namespace Bose.Wearable
 			return WearableTools.GetVariantType(GetProductType(), variantId);
 		}
 
+		#region IEquatable<Device>
+
 		public bool Equals(Device other)
 		{
 			return uid == other.uid;
@@ -88,5 +95,7 @@ namespace Bose.Wearable
 		{
 			return (uid != null ? uid.GetHashCode() : 0);
 		}
+
+		#endregion
 	}
 }

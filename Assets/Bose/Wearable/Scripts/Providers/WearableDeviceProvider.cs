@@ -339,7 +339,7 @@ namespace Bose.Wearable
 			_gestureStatus[gestureId] = false;
 
 			#if UNITY_IOS && !UNITY_EDITOR
-			WearableEnableGesture((int)gestureId);
+			WearableDisableGesture((int)gestureId);
 
 			// Are any gestures still active?  If not, stop listening.
 			bool anyActive = false;
@@ -356,7 +356,7 @@ namespace Bose.Wearable
 				WearableListenForGestureData(false);
 			}
 			#elif UNITY_ANDROID && !UNITY_EDITOR
-			AndroidPlugin.EnableGesture(gestureId);
+			AndroidPlugin.DisableGesture(gestureId);
 			#endif
 		}
 
@@ -598,7 +598,7 @@ namespace Bose.Wearable
 
 					accel.value = new Vector3(
 						(float) accelValue.Call<double>(GetXMethod),
-						(float) accelValue.Call<double>(GetYMethod), 
+						(float) accelValue.Call<double>(GetYMethod),
 						(float) accelValue.Call<double>(GetZMethod)
 					);
 					accel.accuracy = (SensorAccuracy) accelValue.Call<byte>(GetAccuracyMethod);
@@ -718,9 +718,13 @@ namespace Bose.Wearable
 					#if UNITY_IOS
 					_deviceToConnect.productId = (ProductId)WearableGetDeviceProductID();
 					_deviceToConnect.variantId = (byte)WearableGetDeviceVariantID();
+					string firmware = WearableConstants.DefaultFirmwareVersion;
+					WearableGetDeviceFirmwareVersion(ref firmware);
+					_deviceToConnect.firmwareVersion = firmware;
 					#elif UNITY_ANDROID
 					_deviceToConnect.productId = AndroidPlugin.GetDeviceProductId();
 					_deviceToConnect.variantId = AndroidPlugin.GetDeviceVariantId();
+					_deviceToConnect.firmwareVersion = AndroidPlugin.GetDeviceFirmwareVersion();
 					#endif
 					// Make sure productId and variantId values are defined.
 					if (!Enum.IsDefined(typeof(ProductId), _deviceToConnect.productId))
@@ -837,6 +841,7 @@ namespace Bose.Wearable
 		{
 			public char* uid;
 			public char* name;
+			public char* firmwareVersion;
 			public bool isConnected;
 			public int rssi;
 			public int productId;
@@ -1013,6 +1018,13 @@ namespace Bose.Wearable
 		/// </summary>
 		[DllImport("__Internal")]
 		private static extern int WearableGetDeviceVariantID();
+
+		/// <summary>
+		/// Returns the Firmware Version of a device. This will default to an empty string if there is not an open session yet.
+		/// The Firmware Version of a device is only available once a session has been opened.
+		/// </summary>
+		[DllImport("__Internal")]
+		private static extern void WearableGetDeviceFirmwareVersion(ref string version);
 
 		#elif UNITY_ANDROID && !UNITY_EDITOR
 		private class BoseWearableAndroid
@@ -1198,7 +1210,7 @@ namespace Bose.Wearable
 			{
 				if (_wearablePlugin != null)
 				{
-					_wearablePlugin.Call(EnableGestureMethod, (byte)gestureId, true);
+					_wearablePlugin.Call(EnableGestureMethod, (byte)gestureId, false);
 				}
 			}
 
@@ -1226,6 +1238,19 @@ namespace Bose.Wearable
 				}
 
 				return variantId;
+			}
+
+			public string GetDeviceFirmwareVersion()
+			{
+				const string GetFirmwareVersionIdMethod = "WearableGetDeviceFirmwareVersion";
+
+				string firmwareVersion = WearableConstants.DefaultFirmwareVersion;
+				if (_wearablePlugin != null)
+				{
+					firmwareVersion = _wearablePlugin.Call<string>(GetFirmwareVersionIdMethod);
+				}
+
+				return firmwareVersion;
 			}
 
 			private static AndroidJavaObject GetContext()

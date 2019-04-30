@@ -948,8 +948,7 @@ namespace Bose.Wearable
 
 			// If the config rotation sensor is enabled and the final config has a lower priority rotation
 			// source, override it
-			if (config.rotation.isEnabled &&
-			    _finalWearableDeviceConfig.rotationSource.IsLowerPriority(config.rotationSource))
+			if (_finalWearableDeviceConfig.rotationSource.IsLowerPriority(config.rotationSource))
 			{
 				_finalWearableDeviceConfig.rotationSource = config.rotationSource;
 			}
@@ -1203,22 +1202,25 @@ namespace Bose.Wearable
 		/// </summary>
 		protected override void OnDestroy()
 		{
-			for (var i = 0; i < WearableConstants.SensorIds.Length; i++)
+			if (ConnectedDevice.HasValue)
 			{
-				_activeProvider.StopSensor(WearableConstants.SensorIds[i]);
-			}
-
-			for (var i = 0; i < WearableConstants.GestureIds.Length; i++)
-			{
-				if (WearableConstants.GestureIds[i] == GestureId.None)
+				for (var i = 0; i < WearableConstants.SensorIds.Length; i++)
 				{
-					continue;
+					_activeProvider.StopSensor(WearableConstants.SensorIds[i]);
 				}
 
-				_activeProvider.DisableGesture(WearableConstants.GestureIds[i]);
-			}
+				for (var i = 0; i < WearableConstants.GestureIds.Length; i++)
+				{
+					if (WearableConstants.GestureIds[i] == GestureId.None)
+					{
+						continue;
+					}
 
-			DisconnectFromDevice();
+					_activeProvider.DisableGesture(WearableConstants.GestureIds[i]);
+				}
+
+				DisconnectFromDevice();
+			}
 
 			// Clean up providers
 			_activeProvider.OnDisableProvider();

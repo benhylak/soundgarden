@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: cebacb40d9484b90b8deef8b8ecee82a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_PersistentViewDataDictionary: {instanceID: 0}
+  - boseArSdkLogo: {fileID: 2800000, guid: 94a33c3cdd80d4cf78a4d8649d9f567f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -28,18 +28,16 @@ namespace Bose.Wearable
 		}
 
 
+		#pragma warning disable 0414
 		[SerializeField]
 		// This flag controls printing of log messages which aren't warnings or errors, both here
 		// and in the DLL.
-		#pragma warning disable 0414
 		private bool _debugLogging;
-		char[] _statusMessageSeparators;
+		private char[] _statusMessageSeparators;
 
 		// log any status accumulated since the previous update
-		SessionStatus _sessionStatus;
-		StringBuilder _statusMessage;
-		StringBuilder _uidBuilder;
-		StringBuilder _nameBuilder;
+		private SessionStatus _sessionStatus;
+		private StringBuilder _statusMessage;
 		#pragma warning restore 0414
 
 
@@ -405,6 +403,9 @@ namespace Bose.Wearable
 		private bool _performDeviceSearch;
 		private Action<Device[]> _deviceSearchCallback;
 		private float _nextDeviceSearchTime;
+		private StringBuilder _uidBuilder;
+		private StringBuilder _nameBuilder;
+		private StringBuilder _firmwareVersionBuilder;
 
 		// Device connection
 		private bool _performDeviceConnection;
@@ -421,11 +422,12 @@ namespace Bose.Wearable
 
 		internal WearableUSBProvider()
 		{
-			_statusMessageSeparators = new char[] { '\n' };
+			_statusMessageSeparators = new[] { '\n' };
 			_sessionStatus = SessionStatus.Closed;
 			_statusMessage = new StringBuilder(8192);
 			_uidBuilder = new StringBuilder(256);
 			_nameBuilder = new StringBuilder(256);
+			_firmwareVersionBuilder = new StringBuilder(256);
 
 			_sensorStatus = new Dictionary<SensorId, bool>();
 			_sensorUpdateInterval = WearableConstants.DefaultUpdateInterval;
@@ -534,11 +536,14 @@ namespace Bose.Wearable
 						WearableUSBGetDiscoveredDeviceUID(i, _uidBuilder, _uidBuilder.Capacity);
 						_nameBuilder.Length = 0;
 						WearableUSBGetDiscoveredDeviceName(i, _nameBuilder, _nameBuilder.Capacity);
+						_firmwareVersionBuilder.Length = 0;
+						WearableUSBGetDiscoveredDeviceFirmwareVersion(i, _firmwareVersionBuilder, _firmwareVersionBuilder.Capacity);
 
-						devices[i] = new Device()
+						devices[i] = new Device
 						{
 							uid = _uidBuilder.ToString(),
 							name = _nameBuilder.ToString(),
+							firmwareVersion = _firmwareVersionBuilder.ToString(),
 							isConnected = (WearableUSBGetDiscoveredDeviceIsConnected(i) == 0)? false : true,
 							productId = ProductId.Undefined,
 							variantId = (byte) VariantType.Unknown
@@ -744,13 +749,19 @@ namespace Bose.Wearable
 		/// Returns UID of available Wearable device at index.  Returns false if index is invalid.
 		/// </summary>
 		[DllImport("BoseWearableUSBBridge", CharSet = CharSet.Unicode)]
-		private static extern unsafe int WearableUSBGetDiscoveredDeviceUID(int index, StringBuilder uidBuilder, int builderLength);
+		private static extern int WearableUSBGetDiscoveredDeviceUID(int index, StringBuilder uidBuilder, int builderLength);
 
 		/// <summary>
 		/// Returns name of available Wearable device at index.  Returns false if index is invalid.
 		/// </summary>
 		[DllImport("BoseWearableUSBBridge", CharSet = CharSet.Unicode)]
-		private static extern unsafe int WearableUSBGetDiscoveredDeviceName(int index, StringBuilder nameBuilder, int builderLength);
+		private static extern int WearableUSBGetDiscoveredDeviceName(int index, StringBuilder nameBuilder, int builderLength);
+		
+		/// <summary>
+		/// Returns name of available Wearable device at index.  Returns false if index is invalid.
+		/// </summary>
+		[DllImport("BoseWearableUSBBridge", CharSet = CharSet.Unicode)]
+		private static extern int WearableUSBGetDiscoveredDeviceFirmwareVersion(int index, StringBuilder firmware, int builderLength);
 
 		/// <summary>
 		/// Returns name of available Wearable device at index.  Returns false if index is invalid.

@@ -76,7 +76,7 @@ namespace Bose.Wearable
 
 		private void OnSearchButtonClicked()
 		{
-			_panel.StartSearch();
+			_panel.CheckForPermissionsAndTrySearch();
 		}
 	}
 }

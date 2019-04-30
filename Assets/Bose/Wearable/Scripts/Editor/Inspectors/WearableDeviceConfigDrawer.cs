@@ -48,10 +48,8 @@ namespace Bose.Wearable.Editor.Inspectors
 				position.width,
 				WearableConstants.SingleLineHeight);
 
-			EditorGUI.BeginDisabledGroup(!IsRotationSensorEnabled(property));
 			var rotationModeProp = property.FindPropertyRelative(RotationSensorSourcePropertyName);
 			EditorGUI.PropertyField(rotSensorSourceRect, rotationModeProp);
-			EditorGUI.EndDisabledGroup();
 
 			var accelProp = property.FindPropertyRelative(AccelerometerConfigPropertyName);
 			var accelRect = new Rect(
@@ -161,18 +159,6 @@ namespace Bose.Wearable.Editor.Inspectors
 			}
 
 			return numberOfSensorsActive == 0;
-		}
-
-		/// <summary>
-		/// Returns true if the rotation sensor is enabled, otherwise false.
-		/// </summary>
-		/// <param name="property"></param>
-		/// <returns></returns>
-		private static bool IsRotationSensorEnabled(SerializedProperty property)
-		{
-			return property
-				.FindPropertyRelative(RotationConfigPropertyName)
-				.FindPropertyRelative(EnabledPropertName).boolValue;
 		}
 	}
 }

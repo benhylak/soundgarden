@@ -48,7 +48,7 @@ namespace Bose.Wearable
 		/// Set the <see cref="Quaternion"/> <paramref name="rotation"/> as a reference when matching the rotation.
 		/// </summary>
 		/// <param name="rotation"></param>
-		public override void SetRelativeReference(Quaternion rotation)
+		public void SetRelativeReference(Quaternion rotation)
 		{
 			ReferenceMode = RotationReference.Relative;
 			_inverseReference = Quaternion.Inverse(rotation);

@@ -16,11 +16,17 @@ namespace Bose.Wearable
 			Euler,
 			AxisAngle
 		}
-		
+
 		public string Name
 		{
 			get { return _name; }
 			set {_name = value; }
+		}
+
+		public string FirmwareVersion
+		{
+			get { return _firmwareVersion; }
+			set { _firmwareVersion = value; }
 		}
 
 		public int RSSI
@@ -184,10 +190,10 @@ namespace Bose.Wearable
 			if (_verbose)
 			{
 				Debug.LogFormat(
-					WearableConstants.DebugProviderSetUpdateInterval, 
+					WearableConstants.DebugProviderSetUpdateInterval,
 					Enum.GetName(typeof(SensorUpdateInterval), updateInterval));
 			}
-			
+
 			_sensorUpdateInterval = updateInterval;
 		}
 
@@ -199,7 +205,7 @@ namespace Bose.Wearable
 		internal override void SetRotationSource(RotationSensorSource source)
 		{
 			// N.B. This has no affect on the simulated data.
-			
+
 			if (_connectedDevice == null)
 			{
 				Debug.LogWarning(WearableConstants.SetRotationSourceWithoutDeviceWarning);
@@ -209,7 +215,7 @@ namespace Bose.Wearable
 			if (_verbose)
 			{
 				Debug.LogFormat(
-					WearableConstants.DebugProviderSetRotationSource, 
+					WearableConstants.DebugProviderSetRotationSource,
 					Enum.GetName(typeof(RotationSensorSource), source));
 			}
 
@@ -330,7 +336,7 @@ namespace Bose.Wearable
 			{
 				Debug.Log(WearableConstants.DebugProviderEnable);
 			}
-			
+
 			_nextSensorUpdateTime = Time.unscaledTime;
 			_pendingGestures.Clear();
 		}
@@ -353,7 +359,7 @@ namespace Bose.Wearable
 			{
 				return;
 			}
-			
+
 			// Clear the current frames; _lastSensorFrame will retain its previous value.
 			if (_currentSensorFrames.Count > 0)
 			{
@@ -391,7 +397,7 @@ namespace Bose.Wearable
 					_lastSensorFrame.deltaTime = deltaTime;
 					_lastSensorFrame.timestamp = _nextSensorUpdateTime;
 				}
-				
+
 				if (anySensorsEnabled)
 				{
 					if (_simulateMovement)
@@ -447,6 +453,9 @@ namespace Bose.Wearable
 		private string _name;
 
 		[SerializeField]
+		private string _firmwareVersion;
+
+		[SerializeField]
 		private int _rssi;
 
 		[SerializeField]
@@ -475,22 +484,22 @@ namespace Bose.Wearable
 
 		private Quaternion _rotation;
 		private readonly Queue<GestureId> _pendingGestures;
-		
+
 		private readonly Dictionary<SensorId, bool> _sensorStatus;
 		private SensorUpdateInterval _sensorUpdateInterval;
 		private RotationSensorSource _rotationSource;
 		private float _nextSensorUpdateTime;
-		
+
 		private readonly Dictionary<GestureId, bool> _gestureStatus;
 
 		private Device _virtualDevice;
 
-		
 		internal WearableDebugProvider()
 		{
 			_virtualDevice = new Device
 			{
 				name = _name,
+				firmwareVersion = _firmwareVersion,
 				rssi = _rssi,
 				uid = _uid,
 				productId = _productId,
@@ -498,13 +507,14 @@ namespace Bose.Wearable
 			};
 
 			_name = WearableConstants.DebugProviderDefaultDeviceName;
+			_firmwareVersion = WearableConstants.DefaultFirmwareVersion;
 			_rssi = WearableConstants.DebugProviderDefaultRSSI;
 			_uid = WearableConstants.DebugProviderDefaultUID;
 			_productId = WearableConstants.DebugProviderDefaultProductId;
 			_variantId = WearableConstants.DebugProviderDefaultVariantId;
 
 			_verbose = true;
-			
+
 			_eulerSpinRate = Vector3.zero;
 			_axisAngleSpinRate = Vector3.up;
 
@@ -513,7 +523,7 @@ namespace Bose.Wearable
 
 			_rotationSource = WearableConstants.DefaultRotationSource;
 
-			
+
 			_sensorStatus.Add(SensorId.Accelerometer, false);
 			_sensorStatus.Add(SensorId.Gyroscope, false);
 			_sensorStatus.Add(SensorId.Rotation, false);
@@ -529,9 +539,9 @@ namespace Bose.Wearable
 
 				_gestureStatus.Add(WearableConstants.GestureIds[i], false);
 			}
-			
+
 			_pendingGestures = new Queue<GestureId>();
-			
+
 			_nextSensorUpdateTime = 0.0f;
 			_rotation = Quaternion.identity;
 		}
@@ -539,6 +549,7 @@ namespace Bose.Wearable
 		private void UpdateVirtualDeviceInfo()
 		{
 			_virtualDevice.name = _name;
+			_virtualDevice.firmwareVersion = _firmwareVersion;
 			_virtualDevice.rssi = _rssi;
 			_virtualDevice.uid = _uid;
 			_virtualDevice.productId = _productId;
@@ -546,7 +557,7 @@ namespace Bose.Wearable
 		}
 
 		/// <summary>
-		/// Simulate some acceleration data. 
+		/// Simulate some acceleration data.
 		/// </summary>
 		private void UpdateAccelerometerData()
 		{
@@ -560,7 +571,7 @@ namespace Bose.Wearable
 		/// </summary>
 		private void UpdateGyroscopeData()
 		{
-			
+
 			Quaternion invRot = new Quaternion(-_rotation.x, -_rotation.y, -_rotation.z, _rotation.w);
 			_lastSensorFrame.angularVelocity.value = invRot * (_eulerSpinRate * Mathf.Deg2Rad);
 			_lastSensorFrame.angularVelocity.accuracy = SensorAccuracy.High;
@@ -592,7 +603,7 @@ namespace Bose.Wearable
 					{
 						Debug.LogFormat(WearableConstants.DebugProviderTriggerGesture, Enum.GetName(typeof(GestureId), gesture));
 					}
-					
+
 					_lastSensorFrame.gestureId = gesture;
 					return true;
 				}
@@ -602,11 +613,11 @@ namespace Bose.Wearable
 					Debug.LogWarning(WearableConstants.DebugProviderTriggerDisabledGestureWarning);
 				}
 			}
-			
+
 			_lastSensorFrame.gestureId = GestureId.None;
 			return false;
 		}
-		
+
 		#endregion
 	}
 }

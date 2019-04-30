@@ -93,7 +93,7 @@ namespace Bose.Wearable.Proxy
 		#endregion
 
 		#region Private
-		private const byte Version = 0x04;
+		private const byte Version = 0x05;
 		private const int Terminator = 0x424F5345; // "BOSE"
 
 		private static readonly Encoding _stringEncoding;
@@ -171,10 +171,18 @@ namespace Bose.Wearable.Proxy
 		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
+		protected unsafe struct DeviceFirmwareVersion
+		{
+			public const int Length = 16;
+			public fixed byte value[Length];
+		}
+
+		[StructLayout(LayoutKind.Sequential, Pack = 1)]
 		protected struct DeviceInfoPacket
 		{
 			public DeviceUID uid;
 			public DeviceName name;
+			public DeviceFirmwareVersion firmwareVersion;
 			public int rssi;
 			public ProductId productId;
 			public byte variantId;
@@ -308,6 +316,7 @@ namespace Bose.Wearable.Proxy
 				{
 					name = DeserializeFixedString((IntPtr)deviceInfoPacket.name.value, DeviceName.Length),
 					uid = DeserializeFixedString((IntPtr)deviceInfoPacket.uid.value, DeviceUID.Length),
+					firmwareVersion = DeserializeFixedString((IntPtr)deviceInfoPacket.firmwareVersion.value, DeviceFirmwareVersion.Length),
 					productId = deviceInfoPacket.productId,
 					variantId = deviceInfoPacket.variantId,
 					rssi = deviceInfoPacket.rssi,
@@ -331,6 +340,7 @@ namespace Bose.Wearable.Proxy
 			{
 				SerializeFixedString(device.name, (IntPtr)packet.name.value, DeviceName.Length);
 				SerializeFixedString(device.uid, (IntPtr)packet.uid.value, DeviceUID.Length);
+				SerializeFixedString(device.firmwareVersion, (IntPtr)packet.firmwareVersion.value, DeviceFirmwareVersion.Length);
 				packet.productId = device.productId;
 				packet.variantId = device.variantId;
 				packet.rssi = device.rssi;
@@ -447,6 +457,11 @@ namespace Bose.Wearable.Proxy
 		/// <returns></returns>
 		protected static string DeserializeFixedString(IntPtr fixedString, int length)
 		{
+			if (length == 0)
+			{
+				return string.Empty;
+			}
+			
 			// Marshal to a managed buffer
 			byte[] buffer = new byte[length];
 			Marshal.Copy(fixedString, buffer, 0, length);
@@ -470,6 +485,16 @@ namespace Bose.Wearable.Proxy
 		/// <param name="length"></param>
 		protected static void SerializeFixedString(string input, IntPtr fixedString, int length)
 		{
+			if (length == 0)
+			{	
+				return;
+			}
+
+			if (input == null)
+			{
+				input = string.Empty;
+			}
+			
 			// Encode as bytes
 			byte[] buffer = new byte[length];
 			_stringEncoding.GetBytes(input, 0, input.Length > length ? length : input.Length, buffer, 0);
@@ -492,9 +517,9 @@ namespace Bose.Wearable.Proxy
 				Assert.AreEqual(2, sizeof(PacketHeader));
 				Assert.AreEqual(4, sizeof(PacketFooter));
 				Assert.AreEqual(64, sizeof(SensorFrame));
-				Assert.AreEqual(75, sizeof(DeviceInfoPacket));
+				Assert.AreEqual(91, sizeof(DeviceInfoPacket));
 				Assert.AreEqual(4, sizeof(DeviceListPacketHeader));
-				Assert.AreEqual(79, sizeof(ConnectionStatusPacket));
+				Assert.AreEqual(95, sizeof(ConnectionStatusPacket));
 				Assert.AreEqual(5, sizeof(SensorStatusPacket));
 				Assert.AreEqual(5, sizeof(SensorControlPacket));
 				Assert.AreEqual(4, sizeof(RSSIFilterControlPacket));
